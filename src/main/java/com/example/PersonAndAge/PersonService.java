@@ -32,4 +32,21 @@ public class PersonService {
 
         return person;
     }
+
+    public Person updatePerson(Integer personId, Person updatedPerson) {
+        Person existing = personDataBase.get(personId);
+        if (existing == null) {
+            return null;
+        }
+
+        existing.setName(updatedPerson.getName());
+        existing.setAddress(updatedPerson.getAddress());
+        return existing;
+    }
+
+
+    public boolean deletePerson(Integer personId) {
+        Person removed = personDataBase.remove(personId);
+        return removed != null;
+    }
 }

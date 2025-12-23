@@ -43,4 +43,27 @@ public class PersonController {
 
     }
 
+    @PutMapping("/persons/{id}")
+    public ResponseEntity<Person> updatePerson(
+            @PathVariable("id") Integer personId,
+            @RequestBody Person updatedPerson
+    ) {
+        Person person = personService.updatePerson(personId, updatedPerson);
+        if (person == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(person);
+
+    }
+
+    @DeleteMapping("/persons/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable("id") Integer personId) {
+        boolean deleted = personService.deletePerson(personId);
+        if (!deleted) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
