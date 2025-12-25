@@ -1,13 +1,23 @@
 package com.example.PersonAndAge;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@Entity
+@Table(name = "persons")
 public class Person {
 
     // Fields
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String address;
 
     // Constructors

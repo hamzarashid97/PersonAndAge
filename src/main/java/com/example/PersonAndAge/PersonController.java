@@ -1,6 +1,7 @@
 package com.example.PersonAndAge;
 
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class PersonController {
     }
 
     @PostMapping("/persons")
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
+    public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
         personService.createPerson(person);
         return ResponseEntity.status(HttpStatus.CREATED).body(person);
 
@@ -46,7 +47,7 @@ public class PersonController {
     @PutMapping("/persons/{id}")
     public ResponseEntity<Person> updatePerson(
             @PathVariable("id") Integer personId,
-            @RequestBody Person updatedPerson
+            @Valid @RequestBody Person updatedPerson
     ) {
         Person person = personService.updatePerson(personId, updatedPerson);
         if (person == null) {
